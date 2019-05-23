@@ -26,9 +26,9 @@ login_button = driver.find_element_by_id("loginBtn")
 
 if login_button.is_displayed():
     my_id.clear()
-    my_id.send_keys("jfive1995")
+    my_id.send_keys("your_daum_id")
     my_pw.clear()
-    my_pw.send_keys("dhwnsA!7050")
+    my_pw.send_keys("your_daum_pwd")
     login_button.click()
 
 crawl_size = 7884  #7884 is maximum size now
