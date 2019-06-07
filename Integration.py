@@ -22,7 +22,7 @@ except FileNotFoundError:
     exit();
 
 
-#tags = mecab.get_tags(input_text)
-#print(tags)
+tags = mecab.get_tags(input_text)
+print(tags)
 # ToDo : Taglist에 있는 것들로만 뽑아내기
 
