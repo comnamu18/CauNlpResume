@@ -5,6 +5,10 @@ import csv
             
 mecab = Mecab()
 
+def tokenize(text, ntags=10000):
+    sentences = mecab.pos(text)
+    return sentences
+
 def get_tags(text, ntags=10000):
     sentences = mecab.pos(text)
     count = Counter(sentences)

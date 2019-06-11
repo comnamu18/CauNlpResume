@@ -1,16 +1,24 @@
 import os
+import csv
 import pandas as pd
-#from konlpy.tag import Mecab
-from collections import Counter
-#from customNlp import mecab
+from customNlp import mecab
 
+def CsvToDict(filename):
+    mydict = dict()
+    with open(filename, mode='r') as infile:
+        reader = csv.reader(infile)
+        for rows in reader:
+            if not rows[0] in mydict.keys():
+                mydict[rows[0]] = rows[1].strip()
+    return mydict
 #일반명사, 고유명사, 동사, 형용사, 일반 부사
 TAG_LIST = ["NNG", "NNP", "VV", "VA", "MAG"]
-RECOMMEND_LIST = ["높임말", "유의어", "준말"]
 
 #Read dictionary csv and extract data
-data = pd.read_csv("./crawling/corpus/secresumecsv.csv", encoding="utf-8")
+data = pd.read_csv("./crawling/corpus/resumeresultutf.csv", encoding="utf-8")
 recommend_dict = data.loc[data['형태소'].isin(TAG_LIST)]
+noun_dict = CsvToDict("./resources/Noun.csv")
+verb_dict = CsvToDict("./resources/Verb.csv")
 
 #Input File
 INPUT_FILE = input("PLEASE GIVE RESUME : ")
@@ -19,10 +27,26 @@ try:
     input_text = f.read()
     f.close()
 except FileNotFoundError:
+    print("File not exist!")
     exit();
 
-
-tags = mecab.get_tags(input_text)
-print(tags)
-# ToDo : Taglist에 있는 것들로만 뽑아내기
+tags = mecab.tokenize(input_text)
+for item in tags:
+    if not item[1] in TAG_LIST:
+        continue
+    if item[1][0] == 'N':
+        print(item[0])
+        '''
+        if item[0] in noun_dict.keys(): #Check if it has 유의어or준말
+            originalIdx = recommend_dict[recommend_dict["단어"] == item[0]]
+            if not originalIdx.empty:
+                print(originalIdx)
+            recommendIdx = recommend_dict[recommend_dict["단어"] == noun_dict[item[0]]]
+            if not recommendIdx.empty:
+                print("Original Word : " + item[0])
+                print("Recommend Word : " + noun_dict[item[0]])
+        '''
+    if item[1][0] == 'V':
+        if item[0] in verb_dict.keys():
+            print(verb_dict[item[0]])
 
