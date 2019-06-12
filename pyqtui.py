@@ -16,12 +16,15 @@ class MainWidget(QtWidgets.QWidget):
         self.setMinimumSize(QSize(500, 500))    
         self.setWindowTitle("PyQt5 Textarea example")
         self.text1 = QTextBrowser(self)
+        #Set original text to original text box
         self.text1.append("Original")
         self.text1.resize(250,250)
         self.text2 = QTextBrowser(self)
+        #Set changed text to changed text box
         self.text2.append("Changed")
         self.text2.resize(250,250)
         layout = QtWidgets.QVBoxLayout()
+        #Set File reading box
         self.btn = QPushButton("File Open")
         layout.addWidget(self.text1)
         layout.addWidget(self.text2)
@@ -33,6 +36,7 @@ class MainWidget(QtWidgets.QWidget):
         fname = QFileDialog.getOpenFileName(self, 'Open file', 
             'c:\\',"Text files (*.txt)")
         f = open(fname[0], 'r')
+        #read text file and add it to textboxes
         while True:
             line = f.readline()
             if not line: break
