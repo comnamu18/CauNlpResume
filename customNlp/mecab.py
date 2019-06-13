@@ -22,15 +22,15 @@ def get_tags(text, ntags=10000):
 textlist = str()
 sen_count = 10000
     
-for i in range(1,853):
+for i in range(1,401):
     n = str(i)
-    f = open("/mnt/c/Users/MinsooKang/Documents/GitHub/CauNlpResume/crawling/corpus2/resume" + n+".txt", 'r')        
+    f = open("/mnt/c/Users/MinsooKang/Documents/GitHub/CauNlpResume/corpus/resume" + n+".txt", 'r')        
     text = f.read()
     textlist = textlist + text
     f.close
     
     
-wf = open("/mnt/c/Users/MinsooKang/Documents/GitHub/CauNlpResume/crawling/corpus2/resumeresult.csv", 'w', encoding='euc-kr', newline='')
+wf = open("/mnt/c/Users/MinsooKang/Documents/GitHub/CauNlpResume/corpus/resumeresult.csv", 'w', encoding='euc-kr', newline='')
 wr = csv.writer(wf)
 wr.writerow(["단어", "형태소", "횟수"])
 
@@ -42,5 +42,6 @@ for tag in tags:
     word, wpos = sentence
     if word == '\u30fb' or word == '\u2013':
         continue
-    wr.writerow([word, wpos, count])
+    if wpos == 'NNG' or wpos == 'NNP' or wpos == 'VV' or wpos == 'VA' or wpos=='MAG':
+        wr.writerow([word, wpos, count])
 wf.close
