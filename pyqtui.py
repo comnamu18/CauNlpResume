@@ -11,6 +11,8 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QTextCursor
 import os
+import Integration
+
 fileflag =0
 class MainWidget(QtWidgets.QWidget):
     def __init__(self, parent =None):
@@ -59,8 +61,10 @@ class MainWidget(QtWidgets.QWidget):
         self.text1.append(''.join(x for x in collected_words2))
         f.close()
         # changed word list
-        word_list =[]
-        word_list.append("아버지")
+        if not Integration.fixingResume(fname[0], fname2):
+            self.text2.append("error ocurred, please try again")
+            return
+        word_list = Integration.getFixedList()
         collected_words = []
         # open txt if ther is fixed file
         if os.path.isfile(fname2):
