@@ -1,6 +1,6 @@
 # PyQt5 text area
 # pythonprogramminglanguage.com
-
+# -*- coding: utf-8 -*-
 import sys
 from PyQt5.Qt import QApplication, QClipboard
 from PyQt5 import QtCore, QtWidgets
@@ -38,10 +38,16 @@ class MainWidget(QtWidgets.QWidget):
         self.show()
     def getfile(self):
         global fileflag
+
+        self.text1.clear()
+        self.text2.clear()
+        self.text1.append("Original")
+        self.text2.append("Changed")
+
         fname = QFileDialog.getOpenFileName(self, 'Open file', 
             'C:\\',"Text files (*.txt)")
         #exception for error file name(null char)
-        if fname[0] == '':
+        if fname[0] == '' or not os.path.isfile(fname[0]):
             self.text1.setText("there is no such file, research the file. If you do not find, this program ends")
             fileflag+=1
             if fileflag <3 :
@@ -50,8 +56,6 @@ class MainWidget(QtWidgets.QWidget):
                 sys.exit(1)
         f = open(fname[0], 'r', encoding='UTF8')
         fname2 = fname[0].replace('.txt', 'fixed.txt')
-        self.text1.setText("Original")
-        self.text2.setText("Changed")
         collected_words2 =[]
         #read text file and add it to textboxes
         while True:

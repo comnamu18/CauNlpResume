@@ -24,13 +24,13 @@ sen_count = 10000
     
 for i in range(1,401):
     n = str(i)
-    f = open("/mnt/c/Users/MinsooKang/Documents/GitHub/CauNlpResume/corpus/resume" + n+".txt", 'r')        
+    f = open("./corpus/resume" + n+".txt", 'r')        
     text = f.read()
     textlist = textlist + text
     f.close
     
     
-wf = open("/mnt/c/Users/MinsooKang/Documents/GitHub/CauNlpResume/corpus/resumeresult.csv", 'w', encoding='euc-kr', newline='')
+wf = open("./corpus/resumeresult.csv", 'w', encoding='euc-kr', newline='')
 wr = csv.writer(wf)
 wr.writerow(["단어", "형태소", "횟수"])
 
