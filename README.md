@@ -25,7 +25,7 @@
 
 ## Resource Folders
 * resources : 프로젝트를 위해 전처리한 자료들이 들어간 폴더
-* report : 발표자료를 모아둔 폴더
+* report : 발표자료와 최종 보고서들을 모아둔 폴더
 * corpus : 크롤링한 자소서 자료를 모아둔 폴더
 
 ## Refference
